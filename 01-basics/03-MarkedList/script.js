@@ -31,26 +31,15 @@ const app = createApp({
         'Isaias_Kuhic@jarrett.net'
       ],
 
-      emailInput: '',
-
+      emailInput: ''
     };
-  },
-
-  watch: {
-    emailInput: {
-      handler: function(val) {
-        this.emailObj.forEach(function(item) {
-          item.marked = item.email.includes(val) && val !== '';
-        })
-      },
-    }
   },
 
   computed: {
     emailObj() {
       return this.emails.map((email) => ({
         email: email,
-        marked: false
+        marked: email.includes(this.emailInput) && this.emailInput !== ''
       }));
     },
   }

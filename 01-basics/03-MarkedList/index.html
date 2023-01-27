@@ -17,8 +17,8 @@
           <input v-model.trim="emailInput" type="search" />
         </div>
 
-        <ul v-for="(item) in this.emailObj">
-          <li :class="{marked: item.marked}">{{item.email}}</li>
+        <ul v-for="(item) in emailObj">
+          <li :class="{marked: item.marked}">{{ item.email }}</li>
         </ul>
       </div>
     </div>
