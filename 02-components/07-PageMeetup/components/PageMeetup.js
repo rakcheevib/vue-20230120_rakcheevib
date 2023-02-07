@@ -1,8 +1,8 @@
 import { defineComponent } from '../vendor/vue.esm-browser.js';
-import MeetupView from './MeetupView.js';
 import UiContainer from './UiContainer.js';
 import UiAlert from './UiAlert.js';
 import { fetchMeetupById } from '../meetupService.js';
+import MeetupView from '../../06-MeetupView/components/MeetupView';
 
 const States = {
   IDLE: 'IDLE',
@@ -17,9 +17,9 @@ export default defineComponent({
   States,
 
   components: {
-    MeetupView,
     UiAlert,
     UiContainer,
+    MeetupView,
   },
 
   props: {
@@ -68,14 +68,14 @@ export default defineComponent({
 
   template: `
     <div class="page-meetup">
-      <MeetupView v-if="state === $options.States.SUCCESS" :meetup="meetup" />
+    <MeetupView v-if="state === $options.States.SUCCESS" :meetup="meetup" />
 
-      <UiContainer v-if="state === $options.States.LOADING">
-        <UiAlert>Загрузка...</UiAlert>
-      </UiContainer>
+    <UiContainer v-if="state === $options.States.LOADING">
+      <UiAlert>Загрузка...</UiAlert>
+    </UiContainer>
 
-      <UiContainer v-if="state === $options.States.ERROR">
-        <UiAlert>{{ error }}</UiAlert>
-      </UiContainer>
+    <UiContainer v-if="state === $options.States.ERROR">
+      <UiAlert>{{ error }}</UiAlert>
+    </UiContainer>
     </div>`,
 });
