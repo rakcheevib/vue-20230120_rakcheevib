@@ -1,13 +1,33 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 export const router = createRouter({
-  history: createWebHistory('/05-vue-router/03-ScrollBehavior'),
+  history: createWebHistory('/05-vue-router/03-ScrollBehavior/'),
+
+  scrollBehavior(to, from, savedPosition) {
+    // Если есть hash, прокручиваем к элементу по нему
+    if (to.hash) {
+      return { el: to.hash };
+    }
+
+    // Если есть savedPosition, возвращаем его же (переход назад/вперёд)
+    if (savedPosition) {
+      return savedPosition;
+    }
+
+    // Если оба маршрута в мета свойствах имеют saveScrollPosition - не меняем положение
+    if (to.meta.saveScrollPosition && from.meta.saveScrollPosition) {
+      return false;
+    }
+
+    // По умолчанию возвращаемся в начало
+    return { left: 0, top: 0 };
+  },
 
   routes: [
     {
       path: '/',
       name: 'index',
-      component: () => import('../views/PageMeetups'),
+      component: () => import('../views/PageMeetups.vue'),
     },
     {
       path: '/meetups',
@@ -23,20 +43,20 @@ export const router = createRouter({
       },
       props: true,
       redirect: (to) => ({ name: 'meetup.description', params: to.params }),
-      component: () => import('../views/PageMeetup'),
+      component: () => import('../views/PageMeetup.vue'),
       children: [
         {
           path: '',
           alias: 'description',
           name: 'meetup.description',
           props: true,
-          component: () => import('../views/PageMeetupDescription'),
+          component: () => import('../views/PageMeetupDescription.vue'),
         },
         {
           path: 'agenda',
           name: 'meetup.agenda',
           props: true,
-          component: () => import('../views/PageMeetupAgenda'),
+          component: () => import('../views/PageMeetupAgenda.vue'),
         },
       ],
     },
