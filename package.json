@@ -3,7 +3,7 @@
   "version": "5.2.1",
   "private": true,
   "description": "Taskbook for Vue 3 Course on learn.javascript.ru",
-  "author": "Grigorii K. Shartsev <g.shartsev@javascript.info>",
+  "author": "Ivan Rakcheev rakcheevib@alfastrah.ru",
   "scripts": {
     "serve": "vite --port 8080",
     "dev": "vite --port 8080",
