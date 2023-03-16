@@ -1,14 +1,46 @@
 <template>
-  <button class="button-group__button button-group__button_active" type="button" aria-selected="false">Button</button>
+  <button
+    class="button-group__button"
+    :class="{ 'button-group__button_active': isActive }"
+    type="button"
+    :aria-selected="isActive"
+    @click.stop="activate"
+  >
+    <slot />
+  </button>
 </template>
 
 <script>
+import UiButtonGroup, { BUTTON_GROUP_KEY } from './UiButtonGroup.vue';
+
 export default {
   name: 'UiButtonGroupItem',
+
+  inject: {
+    buttonGroup: BUTTON_GROUP_KEY,
+  },
 
   props: {
     value: {
       required: true,
+    },
+  },
+
+  computed: {
+    isActive() {
+      return this.buttonGroup.activeValue === this.value;
+    },
+  },
+
+  created() {
+    if (this.buttonGroup === undefined) {
+      console.warn(`${this.$options.name} must be used as a descendant of ${UiButtonGroup.name}`);
+    }
+  },
+
+  methods: {
+    activate() {
+      this.buttonGroup.updateActiveValue(this.value);
     },
   },
 };
